@@ -15,4 +15,16 @@
 	$ sudo apt-get install ros-kinetic-dynamixel-sdk
 	$ sudo apt-get install ros-kinetic-turtlebot3-msgs
 	$ sudo apt-get install ros-kinetic-turtlebot3
-
+3. Install Tello Driver:
+	$ cd ~/catkin_ws/src
+	$ git clone https://github.com/KhairulIzwan/tello_driver.git
+	$ cd ~/catkin_ws && rosdep install -y --from-paths src --ignore-src --rosdistro kinetic && catkin_make && rospack profile
+	$ source ~/.bashrc
+	$ rosed tello_driver tello_node.launch
+	Edit:
+		<node pkg="image_transport" 
+			name="image_compressed"
+			type="republish"
+			args="h264 in:=image_raw compressed out:=image_raw" />
+	$ cd ~/catkin_ws && rosdep install -y --from-paths src --ignore-src --rosdistro kinetic && catkin_make && rospack profile
+	$ source ~/.bashrc

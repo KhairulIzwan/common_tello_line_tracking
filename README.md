@@ -28,3 +28,9 @@
 			args="h264 in:=image_raw compressed out:=image_raw" />
 	$ cd ~/catkin_ws && rosdep install -y --from-paths src --ignore-src --rosdistro kinetic && catkin_make && rospack profile
 	$ source ~/.bashrc
+
+## Operation
+
+1. Manually Control (Using Keyboard):
+	Terminal 1: $ roslaunch tello_driver tello_node.launch
+	Terminal 2: $ rosrun common_tello_line_tracking teleop

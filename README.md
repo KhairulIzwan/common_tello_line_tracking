@@ -52,12 +52,52 @@
 	$ python -m pip install apriltag
 	```
 	
+## Nodes
+# Tello Driver Node
+
+1. Subscribed topics
+```
+/tello/cmd_vel geometry_msgs/Twist
+/tello/emergency std_msgs/Empty
+/tello/fast_mode std_msgs/Empty
+/tello/flattrim std_msgs/Empty
+/tello/flip std_msgs/Uint8
+/tello/land std_msgs/Empty
+/tello/palm_land std_msgs/Empty
+/tello/takeoff std_msgs/Empty
+/tello/manual_takeoff std_msgs/Empty
+/tello/throw_takeoff std_msgs/Empty
+Published topics
+/tello/camera/camera_info sensor_msgs/CameraInfo
+/tello/image_raw sensor_msgs/Image
+/tello/imag/raw/h264 h264_image_transport/H264Packet
+/tello/odom nav_msgs/Odometry
+/tello/imu sensor_msgs/Imu
+/tello/status tello_driver/TelloStatus```
+
+2. Services
+```TODO
+
+3. Parameters
+```
+~/tello_driver_node/connect_timeout_sec
+~/tello_driver_node/fixed_video_rate
+~/tello_driver_node/local_cmd_client_port
+~/tello_driver_node/local_vid_server_port
+~/tello_driver_node/stream_h264_video
+~/tello_driver_node/tello_cmd_server_port
+~/tello_driver_node/tello_ip
+~/tello_driver_node/vel_cmd_scale
+~/tello_driver_node/video_req_sps_hz
+~/tello_driver_node/altitude_limit
+~/tello_driver_node/attitude_limit
+~/tello_driver_node/low_bat_threshold```
+
 ## Operation
 
 1. Manually Control (Using Keyboard):
 	1. Activate Tello Driver node:
 		1. Terminal 1:
-		
 		```$ roslaunch tello_driver tello_node.launch```
 	
 	2. Run Tele-Operation Keyboard node to Control Drone:
@@ -66,29 +106,47 @@
 	
 2. Camera Preview:
 	1. Activate Tello Driver:
-		1. Terminal 1: $ roslaunch tello_driver tello_node.launch
+		1. Terminal 1:
+		```$ roslaunch tello_driver tello_node.launch```
+		
 	2. Run Camera Preview node:
-		1. Terminal 2: $ rosrun common_tello_line_tracking tello_camera_preview.py
+		1. Terminal 2:
+		```$ rosrun common_tello_line_tracking tello_camera_preview.py```
+		
 	3. Run Tele-Operation Keyboard node to Control Drone:
-		1. Terminal 2: $ rosrun common_tello_line_tracking tello_teleop_key.py
+		1. Terminal 3:
+		```$ rosrun common_tello_line_tracking tello_teleop_key.py```
 	
 3. AprilTag3 Detection:
-	1. ACtivate Tello Driver node:
-		1. Terminal 1: $ roslaunch tello_driver tello_node.launch
+	1. Activate Tello Driver node:
+		1. Terminal 1:
+		```$ roslaunch tello_driver tello_node.launch```
+		
 	2. Run Camera Preview with AprilTag3 Detection node:
-		1. Terminal 2: $ rosrun common_tello_line_tracking tello_camera_apriltag_detection.py
+		1. Terminal 2:
+		```$ rosrun common_tello_line_tracking tello_camera_apriltag_detection.py```
 	
 4. Autonomous Takeoff and Land (Using AprilTag3 0:Takeoff; 1:Land):
-	1. ACtivate Tello Driver node:
-		1. Terminal 1: $ roslaunch tello_driver tello_node.launch
+	1. Activate Tello Driver node:
+		1. Terminal 1:
+		```$ roslaunch tello_driver tello_node.launch```
+		
 	2. Run Camera Preview with AprilTag3 Detection node:
-		1. Terminal 2: $ rosrun common_tello_line_tracking tello_camera_apriltag_detection.py
+		1. Terminal 2:
+		```$ rosrun common_tello_line_tracking tello_camera_apriltag_detection.py```
+		
 	3. Run Autonomous Takeoff and Land node:
-		1. Terminal 3: $ rosrun common_tello_line_tracking tello_camera_apriltag_takeoff_land.py
+		1. Terminal 3:
+		```$ rosrun common_tello_line_tracking tello_camera_apriltag_takeoff_land.py```
 	
 5. Autonomou Task Basic:
-	1. ACtivate Tello Driver node:
-		1. Terminal 1: $ roslaunch tello_driver tello_node.launch
-	2. Run Camera Preview with AprilTag3 Detection node:
-		1. Terminal 2: $ rosrun common_tello_line_tracking tello_camera_apriltag_detection.py
+	1. Activate Tello Driver node:
+		1. Terminal 1:
+		```$ roslaunch tello_driver tello_node.launch```
+	
+	2. Run	
+	3. Run Camera Preview with AprilTag3 Detection node:
+		1. Terminal 2:
+		```$ rosrun common_tello_line_tracking tello_camera_apriltag_detection.py```
+		
 	3. 

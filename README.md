@@ -36,13 +36,21 @@
 	```
 	
 4. Intall PIP library:
+	```
 	$ cd ~
 	$ wget https://bootstrap.pypa.io/get-pip.py
 	$ sudo python get-pip.py
+	```
+	
 5. Install imutils library:
+	```
 	$ python -m pip install imutils
-6. Install AprilTag3 library
+	```
+	
+6. Install AprilTag3 library:
+	```
 	$ python -m pip install apriltag
+	```
 	
 ## Operation
 

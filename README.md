@@ -73,10 +73,13 @@ Published topics
 /tello/imag/raw/h264 h264_image_transport/H264Packet
 /tello/odom nav_msgs/Odometry
 /tello/imu sensor_msgs/Imu
-/tello/status tello_driver/TelloStatus```
+/tello/status tello_driver/TelloStatus
+```
 
 2. Services
-```TODO
+```
+TODO
+```
 
 3. Parameters
 ```
@@ -91,7 +94,8 @@ Published topics
 ~/tello_driver_node/video_req_sps_hz
 ~/tello_driver_node/altitude_limit
 ~/tello_driver_node/attitude_limit
-~/tello_driver_node/low_bat_threshold```
+~/tello_driver_node/low_bat_threshold
+```
 
 ## Operation
 

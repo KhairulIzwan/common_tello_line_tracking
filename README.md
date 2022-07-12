@@ -57,9 +57,12 @@
 1. Manually Control (Using Keyboard):
 	1. Activate Tello Driver node:
 		1. Terminal 1:
+		
 		```$ roslaunch tello_driver tello_node.launch```
+	
 	2. Run Tele-Operation Keyboard node to Control Drone:
-		1. Terminal 2: $ rosrun common_tello_line_tracking tello_teleop_key.py
+		1. Terminal 2:
+		```$ rosrun common_tello_line_tracking tello_teleop_key.py```
 	
 2. Camera Preview:
 	1. Activate Tello Driver:

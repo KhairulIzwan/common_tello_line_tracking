@@ -631,8 +631,14 @@ class CameraPreview:
 					self.cv_image.copy(), 
 					width=320
 					)
+					
+#		rospy.loginfo(self.cv_image_clone.shape)
+
+		# Crop the image
+		crop_img = self.cv_image_clone[120:200, 70:170]
 
 		cv2.imshow("Camera Preview", self.cv_image_clone)
+		cv2.imshow("Camera Preview CROP", crop_img)
 		cv2.waitKey(1)
 
 	# Preview image + info
@@ -641,6 +647,7 @@ class CameraPreview:
 		if self.image_received:
 			self.cbInfo()
 			self.cbShowImage()
+			
 		else:
 			rospy.logerr("No images recieved")
 

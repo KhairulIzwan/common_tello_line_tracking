@@ -323,9 +323,13 @@ class CameraAprilTag:
 					self.cv_image.copy(), 
 					width=320
 					)
+					
+		self.cv_image_clone = self.cv_image_clone[120:200, 70:170]
 		self.cv_image_gray = cv2.cvtColor(self.cv_image_clone, cv2.COLOR_BGR2GRAY)
 		
+		
 		h, w = self.cv_image_gray.shape
+		rospy.loginfo([h, w])
 
 		# Blur image to reduce noise. if Kernel_size is bigger the image will be more blurry
 		self.blurred = cv2.GaussianBlur(self.cv_image_gray, (15, 15), 0)
@@ -339,28 +343,28 @@ class CameraAprilTag:
 		rospy.loginfo(len(contours))
 
 		if len(contours) > 0 :
-			rospy.loginfo("I see the line")
+#			rospy.loginfo("I see the line")
 			c = max(contours, key=cv2.contourArea)
 			M = cv2.moments(c)
 			if M["m00"] !=0 :
 				cx = int(M['m10']/M['m00'])
 				cy = int(M['m01']/M['m00'])
-				cv2.line(self.cv_image_clone, (cx,0), (cx,h), (255,0,0), 1)
-				cv2.line(self.cv_image_clone, (0,cy), (w,cy), (255,0,0), 1)
-				cv2.drawContours(self.cv_image_clone, contours, -1, (0,255,0), 1)
-
-				if cx >= 120:
-					rospy.loginfo("Turn Left!")
+				cv2.line(self.cv_image_clone, (cx, 0), (cx, h), (255, 0, 0), 1)
+				cv2.line(self.cv_image_clone, (0, cy), (w, cy), (0, 0, 255), 1)
+				cv2.drawContours(self.cv_image_clone, contours, -1, (0, 255, 0), 1)
+				rospy.loginfo(cx)
+				if cx >= 70:
+					rospy.loginfo("Turn Right!")
 					self.twist.linear.x =  0.0
-					self.twist.linear.y =  0.2
+					self.twist.linear.y =  0.1
 					self.twist.linear.z =  0.0
 
 					self.twist.angular.x = 0.0
 					self.twist.angular.y = 0.0
-					self.twist.angular.z = 0.2
+					self.twist.angular.z = 0.4
 		
 					self.telloTwist_pub.publish(self.twist)
-				if cx < 120 and cx > 50:
+				if cx < 70 and cx > 30:
 					rospy.loginfo("On Track!")
 					self.twist.linear.x =  0.0
 					self.twist.linear.y =  0.2
@@ -371,19 +375,20 @@ class CameraAprilTag:
 					self.twist.angular.z = 0.0
 		
 					self.telloTwist_pub.publish(self.twist)
-				if cx <= 50:
-					rospy.loginfo("Turn Right")
+				if cx <= 30:
+					rospy.loginfo("Turn Left")
 					self.twist.linear.x =  0.0
-					self.twist.linear.y =  0.2
+					self.twist.linear.y =  0.1
 					self.twist.linear.z =  0.0
 
 					self.twist.angular.x = 0.0
 					self.twist.angular.y = 0.0
-					self.twist.angular.z = -0.2
+					self.twist.angular.z = -0.4
 		
 					self.telloTwist_pub.publish(self.twist)
 		else:
-			rospy.loginfo("I don't see the line")
+#			rospy.loginfo("I don't see the line")
+			pass
 #		# Is any QR detected?
 #		if len(result) != 0:
 #			self.isApriltag.data = True

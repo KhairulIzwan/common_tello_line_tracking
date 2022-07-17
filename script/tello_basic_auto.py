@@ -304,18 +304,18 @@ class CameraAprilTag:
 		
 		# Ask Drone to get down min height 0.4000m
 		elif self.missionCount == 1:
-			if self.height_m > 0.5000:
+			if self.height_m > 0.7000:
 				rospy.logerr("Hover Down")
 				self.twist.linear.x =  0.0
 				self.twist.linear.y =  0.0
-				self.twist.linear.z =  -0.8
+				self.twist.linear.z =  -0.4
 
 				self.twist.angular.x = 0.0
 				self.twist.angular.y = 0.0
 				self.twist.angular.z = 0.0
 			
 				self.telloTwist_pub.publish(self.twist)
-			elif self.height_m <= 0.4000:
+			elif self.height_m <= 0.6000:
 				rospy.logerr("Hover Up")
 				self.twist.linear.x =  0.0
 				self.twist.linear.y =  0.0
@@ -391,11 +391,11 @@ class CameraAprilTag:
 	# Preview image + info
 	def cbPreview(self):
 		self.cbMissionTag()
-#		if self.image_received:
-##			self.cbInfo()
-#			self.cbShowImage()
-#		else:
-#			rospy.logerr("No images recieved")
+		if self.image_received:
+#			self.cbInfo()
+			self.cbShowImage()
+		else:
+			rospy.logerr("No images recieved")
 
 	# Show the output frame
 	def cbShowImage(self):

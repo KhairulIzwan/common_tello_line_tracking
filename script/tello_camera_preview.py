@@ -653,7 +653,7 @@ class CameraPreview:
 if __name__ == '__main__':
 
 	# Initialize
-	rospy.init_node('camera_preview', anonymous=False)
+	rospy.init_node('tello_camera_preview', anonymous=False)
 	camera = CameraPreview()
 	
 #	r = rospy.Rate(10)

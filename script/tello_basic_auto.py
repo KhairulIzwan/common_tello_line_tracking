@@ -273,7 +273,7 @@ class CameraAprilTag:
 
 	def cbMissionTag(self):
 		key = self.getKey()
-		rospy.logwarn([self.height_m, self.missionCount])
+#		rospy.logwarn([self.height_m, self.missionCount])
 		# Drone Takeoff
 		if self.missionCount == 0 and key  == "v":
 			rospy.logerr("TakeOff")
@@ -290,6 +290,64 @@ class CameraAprilTag:
 		
 		# Drone achieved 1.0m height
 		elif self.missionCount == 0 and self.height_m >= 0.8000:
+#			rospy.logerr("Hover Down")
+			self.twist.linear.x =  0.0
+			self.twist.linear.y =  0.0
+			self.twist.linear.z =  0.0
+
+			self.twist.angular.x = 0.0
+			self.twist.angular.y = 0.0
+			self.twist.angular.z = 0.0
+		
+			self.telloTwist_pub.publish(self.twist)
+			self.missionCount += 1
+		
+		# Ask Drone to get down min height 0.4000m
+		elif self.missionCount == 1:
+			if self.height_m > 0.5000:
+				rospy.logerr("Hover Down")
+				self.twist.linear.x =  0.0
+				self.twist.linear.y =  0.0
+				self.twist.linear.z =  -0.8
+
+				self.twist.angular.x = 0.0
+				self.twist.angular.y = 0.0
+				self.twist.angular.z = 0.0
+			
+				self.telloTwist_pub.publish(self.twist)
+			elif self.height_m <= 0.4000:
+				rospy.logerr("Hover Up")
+				self.twist.linear.x =  0.0
+				self.twist.linear.y =  0.0
+				self.twist.linear.z =  0.0
+
+				self.twist.angular.x = 0.0
+				self.twist.angular.y = 0.0
+				self.twist.angular.z = 0.0
+			
+				self.telloTwist_pub.publish(self.twist)
+				self.missionCount += 1
+		
+		# Move forward 2 seconds
+		elif self.missionCount == 2:
+			rospy.logerr("Move Forward (Outside Start Box)")
+			self.twist.linear.x =  0.0
+			self.twist.linear.y =  0.4
+			self.twist.linear.z =  0.0
+
+			self.twist.angular.x = 0.0
+			self.twist.angular.y = 0.0
+			self.twist.angular.z = 0.0
+		
+			self.telloTwist_pub.publish(self.twist)
+				
+			time.sleep(2)
+			
+			self.missionCount += 1
+		
+		# Line tracking mission
+		elif self.missionCount == 3:
+#			rospy.logerr("Hover Down")
 			self.twist.linear.x =  0.0
 			self.twist.linear.y =  0.0
 			self.twist.linear.z =  0.0
@@ -301,32 +359,10 @@ class CameraAprilTag:
 			self.telloTwist_pub.publish(self.twist)
 			self.missionCount += 1
 			
-		elif self.missionCount == 1:
-			if self.height_m > 0.5000:
-				self.twist.linear.x =  0.0
-				self.twist.linear.y =  0.0
-				self.twist.linear.z =  -0.8
-
-				self.twist.angular.x = 0.0
-				self.twist.angular.y = 0.0
-				self.twist.angular.z = 0.0
-			
-				self.telloTwist_pub.publish(self.twist)
-			elif self.height_m <= 0.5000:
-				self.twist.linear.x =  0.0
-				self.twist.linear.y =  0.0
-				self.twist.linear.z =  0.0
-
-				self.twist.angular.x = 0.0
-				self.twist.angular.y = 0.0
-				self.twist.angular.z = 0.0
-			
-				self.telloTwist_pub.publish(self.twist)
-				self.missionCount += 1
-			
 		# Drone Landed Mission Completed!
-		elif self.missionCount == 2:
+		elif self.missionCount == 4 and key  == "b":
 #			time.sleep(2)
+			rospy.logerr("Completed!")
 			self.telloLand_pub.publish(self.land)
 			self.missionCount += 1
 		else:
@@ -355,11 +391,11 @@ class CameraAprilTag:
 	# Preview image + info
 	def cbPreview(self):
 		self.cbMissionTag()
-		if self.image_received:
-			self.cbInfo()
-			self.cbShowImage()
-		else:
-			rospy.logerr("No images recieved")
+#		if self.image_received:
+##			self.cbInfo()
+#			self.cbShowImage()
+#		else:
+#			rospy.logerr("No images recieved")
 
 	# Show the output frame
 	def cbShowImage(self):
